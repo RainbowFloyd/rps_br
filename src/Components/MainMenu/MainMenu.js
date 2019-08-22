@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MainMenu = () => {
 	return (
 		<div>
-			<button>Choose Gamemode</button>
-			<button>Options</button>
+			<button><Link to='/gamemode'>Choose Gamemode</Link></button>
+			<button><Link to='/options'>Options</Link></button>
 		</div>
 	)
 }

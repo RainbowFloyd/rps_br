@@ -12,10 +12,10 @@ const choicesList = rpsArr.map((choice, index) => {
 
 const Battle = () => {
 	return (
-		<fragment>
+		<div>
 			<h1>Battle Screen</h1>
 			{choicesList}
-		</fragment>
+		</div>
 	)
 }
 

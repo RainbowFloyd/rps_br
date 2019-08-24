@@ -8,6 +8,12 @@ import Options from './Components/Options/Options';
 import Battle from './Components/Battle/Battle';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+  }
   render() {
     return (
       <div>

@@ -13,6 +13,10 @@ class App extends Component {
     super(props);
     this.state = {
       opponents: {}
+      player: {
+        username: 'default'
+        alive: true
+      }
     }
     this.handleOpponentChange = this.handleOpponentChange.bind(this);
   }
@@ -42,7 +46,7 @@ class App extends Component {
     this.setState({
       opponents: newOpponents
     })
-    console.log(this.state)
+    console.log(this.state.opponents)
   }
 
 }

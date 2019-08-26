@@ -12,10 +12,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      opponents: {}
+      opponents: {},
       player: {
-        username: 'default'
-        alive: true
+        username: 'default',
+        alive: true,
+        lastChoice: undefined,
       }
     }
     this.handleOpponentChange = this.handleOpponentChange.bind(this);

@@ -24,12 +24,16 @@ class App extends Component {
         <p>Welcome to Rock, Paper, Scissors Battle Royal!</p>
         <button><Link to='/'>Main Menu</Link></button>
         <Route exact path='/' component={MainMenu} />
+
         <Route path='/gamemode' render={()=><ChooseGame 
           opponents={this.state.opponents}
           handleOpponentChange={this.handleOpponentChange}
-          />}/>
+        />}/>
+
         <Route path='/options' component={Options} />
-        <Route path='/battle' component={Battle} />
+        <Route path='/battle' render={()=><Battle 
+          opponents={this.state.opponents}
+        />}/>
       </div>
     )
   }

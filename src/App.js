@@ -13,6 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       opponents: {},
+      currentOpponents: {},
       player: {
         username: 'default',
         alive: true,
@@ -20,6 +21,7 @@ class App extends Component {
       }
     }
     this.handleOpponentChange = this.handleOpponentChange.bind(this);
+    this.handleCurrentOpponentChange = this.handleCurrentOpponentChange.bind(this);
   }
 
 
@@ -33,11 +35,13 @@ class App extends Component {
         <Route path='/gamemode' render={()=><ChooseGame 
           opponents={this.state.opponents}
           handleOpponentChange={this.handleOpponentChange}
+          handleCurrentOpponentChange={this.handleCurrentOpponentChange}
         />}/>
 
         <Route path='/options' component={Options} />
         <Route path='/battle' render={()=><Battle 
           opponents={this.state.opponents}
+          player={this.state.player}
         />}/>
       </div>
     )
@@ -47,7 +51,13 @@ class App extends Component {
     this.setState({
       opponents: newOpponents
     })
-    console.log(this.state.opponents)
+  }
+
+  handleCurrentOpponentChange(newOpponents) {
+    this.setState({
+      currentOpponents: newOpponents
+    })
+    console.log(this.state)
   }
 
 }

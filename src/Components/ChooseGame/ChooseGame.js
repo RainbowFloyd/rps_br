@@ -14,6 +14,7 @@ const ChooseGame = (props) => {
 			}
 		}
 		props.handleOpponentChange(newOpponents);
+		props.handleCurrentOpponentChange(newOpponents);
 	}
 
 	return(

@@ -15,10 +15,13 @@ const Battle = (props) => {
 	}
 
 	const opponentChoice = (opponentsObj) => {
+		let updatedChoices = {}
 		for (let opponent in opponentsObj) {
 			let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
 			opponentsObj[opponent].lastChoice = opponentChoice
+			updatedChoices[opponent] = opponentsObj[opponent]
 		}
+		props.handleCurrentOpponentChange(updatedChoices);
 	}
 
 	const determineWinner = (playerObj, opponentObj) => {

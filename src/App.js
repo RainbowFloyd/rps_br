@@ -46,6 +46,7 @@ class App extends Component {
         <Route path='/battle' render={()=><Battle 
           opponents={this.state.opponents}
           currentOpponents={this.state.currentOpponents}
+          handleCurrentOpponentChange={this.handleCurrentOpponentChange}
           player={this.state.player}
         />}/>
 

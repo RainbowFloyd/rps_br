@@ -17,6 +17,7 @@ const ChooseGame = (props) => {
 
 	const pairNewOpponents = () => {
 		const matchPairs = [];
+		const shuffledPlayerList = props.playerList
 	}
 
 	const createOpponents = (numOfOpponents) => {

@@ -4,8 +4,19 @@ import { Link } from 'react-router-dom'
 
 const ChooseGame = (props) => {
 
-	const pairNewOpponents = () => {
+	const shuffleArray = (arr) => {
+		let cloneArr = arr;
+		for (let i = 0; i < arr.length; i++) {
+			let j = Math.floor(Math.random() * (arr.length - 1));
+			let temp = cloneArr[i];
+			cloneArr[i] = cloneArr[j];
+			cloneArr[j] = temp;
+		}
+		return cloneArr;
+	}
 
+	const pairNewOpponents = () => {
+		const matchPairs = [];
 	}
 
 	const createOpponents = (numOfOpponents) => {

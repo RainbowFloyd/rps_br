@@ -24,6 +24,11 @@ class App extends Component {
     this.handleCurrentOpponentChange = this.handleCurrentOpponentChange.bind(this);
   }
 
+  componentDidUpdate() {
+    console.log(`state updated!`)
+    console.log(this.state)
+  }
+
 
   render() {
     return (
@@ -38,11 +43,13 @@ class App extends Component {
           handleCurrentOpponentChange={this.handleCurrentOpponentChange}
         />}/>
 
-        <Route path='/options' component={Options} />
         <Route path='/battle' render={()=><Battle 
           opponents={this.state.opponents}
+          currentOpponents={this.state.currentOpponents}
           player={this.state.player}
         />}/>
+
+        <Route path='/options' component={Options} />
       </div>
     )
   }

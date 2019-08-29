@@ -1,8 +1,11 @@
 import React from 'react';
 
 const rpsArr = ['Rock', 'Paper', 'Scissors'];
-
-
+const rpsObj = {
+	Rock: 'Scissors',
+	Paper: 'Rock',
+	Scissors: 'Paper'
+}
 
 const Battle = (props) => {
 
@@ -18,16 +21,27 @@ const Battle = (props) => {
 		}
 	}
 
-	const determineWinner = (playerObj, opponentsObj) => {
-		console.log(`inside determineWinner`)
-		console.log(playerObj);
-		console.log(opponentsObj);
+	const determineWinner = (playerObj, opponentObj) => {
+		const playerChoice = playerObj.lastChoice;
+		const opponentChoice = opponentObj.lastChoice;
+		if (playerChoice === opponentChoice) {
+			console.log('Tie');
+			return 'tie';
+		} else if (rpsObj[playerChoice] === opponentChoice) {
+			console.log('You win!');
+			return 'win';
+		}
+		return 'lose';
 	}
 
 	const runBattle = (playerChoice) => {
 		props.player.lastChoice = playerChoice;
 		opponentChoice(props.currentOpponents);
-		determineWinner(props.player, props.currentOpponents);
+		for (let opponent in props.currentOpponents) {
+			console.log(`${opponent} choose ${props.currentOpponents[opponent].lastChoice}`);
+			console.log(`You choose ${props.player.lastChoice}`);
+			determineWinner(props.player, props.currentOpponents[opponent]);
+		}
 	}
 
 	const choicesList = rpsArr.map((choice, index) => {

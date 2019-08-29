@@ -33,8 +33,11 @@ const Battle = (props) => {
 		} else if (rpsObj[playerChoice] === opponentChoice) {
 			console.log('You win!');
 			return 'win';
+		} else {
+			console.log(`You lose!`);
+			return 'lose';
 		}
-		return 'lose';
+		return Error;
 	}
 
 	const runBattle = (playerChoice) => {

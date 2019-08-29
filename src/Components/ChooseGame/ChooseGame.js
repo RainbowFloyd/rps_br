@@ -4,17 +4,23 @@ import { Link } from 'react-router-dom'
 
 const ChooseGame = (props) => {
 
+	const pairNewOpponents = () => {
+
+	}
+
 	const createOpponents = (numOfOpponents) => {
-		let newOpponents = {}
+		let newOpponents = {};
+		let newOpponentsArr = ['player'];
 		for (let i = 0; i < numOfOpponents; i++) {
 			let opponentName = `oppenent${i}`
+			newOpponentsArr.push(opponentName);
 			newOpponents[opponentName] = {
 				alive: true,
 				lastChoice: '',
 				currentOpponents: {}
 			}
 		}
-		props.handleOpponentChange(newOpponents);
+		props.handleOpponentChange(newOpponents, newOpponentsArr);
 	}
 
 	return(

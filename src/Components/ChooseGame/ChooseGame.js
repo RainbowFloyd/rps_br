@@ -7,10 +7,10 @@ const ChooseGame = (props) => {
 	const createOpponents = (numOfOpponents) => {
 		let newOpponents = {}
 		for (let i = 0; i < numOfOpponents; i++) {
-			let opponentName = `oppenent ${i}`
+			let opponentName = `oppenent${i}`
 			newOpponents[opponentName] = {
 				alive: true,
-				lastChoice: undefined
+				lastChoice: ''
 			}
 		}
 		props.handleOpponentChange(newOpponents);

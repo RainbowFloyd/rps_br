@@ -64,7 +64,6 @@ class App extends Component {
     this.setState({
       currentOpponents: newOpponents
     })
-    console.log(this.state)
   }
 
 }

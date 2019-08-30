@@ -61,7 +61,7 @@ class App extends Component {
     this.setState({
       opponents: newOpponents,
       playerList: newOpponentsArr
-    })
+    });
   }
 
   handleCurrentOpponentChange(newOpponents) {

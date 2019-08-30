@@ -17,7 +17,14 @@ const ChooseGame = (props) => {
 
 	const pairNewOpponents = () => {
 		const matchPairs = [];
-		const shuffledPlayerList = props.playerList
+		console.log(props.playerList);
+		const playerList = props.playerList;
+		const shuffledPlayerList = shuffleArray(playerList);
+		for (let i = 0; i < shuffledPlayerList.lengh; i += 2) {
+			matchPairs.push([shuffledPlayerList[i], shuffledPlayerList[i + 1]]);
+		}
+		console.log(`matchPairs ${matchPairs}`);
+		//either return matchPairs or update state
 	}
 
 	const createOpponents = (numOfOpponents) => {

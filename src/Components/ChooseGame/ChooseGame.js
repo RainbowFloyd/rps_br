@@ -38,7 +38,7 @@ const ChooseGame = (props) => {
 			}
 		}
 		let playerPairs = pairNewOpponents(newOpponentsArr);
-		props.handleOpponentChange(newOpponents, newOpponentsArr);
+		props.handleOpponentChange(newOpponents, newOpponentsArr, playerPairs);
 	}
 
 	return(

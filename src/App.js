@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       opponents: {},
       playerList: ['player'],
+      playerPairs: [],
       player: {
         username: 'default',
         alive: true,
@@ -57,10 +58,11 @@ class App extends Component {
     )
   }
 
-  handleOpponentChange(newOpponents, newOpponentsArr) {
+  handleOpponentChange(newOpponents, newOpponentsArr, newPlayerPairs) {
     this.setState({
       opponents: newOpponents,
-      playerList: newOpponentsArr
+      playerList: newOpponentsArr,
+      playerPairs: newPlayerPairs
     });
   }
 

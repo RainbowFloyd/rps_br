@@ -9,6 +9,17 @@ const rpsObj = {
 
 const Battle = (props) => {
 
+	//Make function that will set a Timer for all players to make a choice
+	//If no choice is made, make a random choice for them
+	//AI opponents will choose between 2-5 seconds
+	//when each choice is made, add playerName and choice to an object and wait for other inputs
+	//use async & await with promises
+
+	//use props to access needed inputs
+	const runBattle = () => {
+		//wait for state to update, then run this function
+	}
+
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
 		runBattle(playerChoice);
@@ -40,15 +51,15 @@ const Battle = (props) => {
 		return Error;
 	}
 
-	const runBattle = (playerChoice) => {
-		props.player.lastChoice = playerChoice;
-		opponentChoice(props.currentOpponents);
-		for (let opponent in props.currentOpponents) {
-			console.log(`${opponent} choose ${props.currentOpponents[opponent].lastChoice}`);
-			console.log(`You choose ${props.player.lastChoice}`);
-			determineWinner(props.player, props.currentOpponents[opponent]);
-		}
-	}
+	// const runBattle = (playerChoice) => {
+	// 	props.player.lastChoice = playerChoice;
+	// 	opponentChoice(props.currentOpponents);
+	// 	for (let opponent in props.currentOpponents) {
+	// 		console.log(`${opponent} choose ${props.currentOpponents[opponent].lastChoice}`);
+	// 		console.log(`You choose ${props.player.lastChoice}`);
+	// 		determineWinner(props.player, props.currentOpponents[opponent]);
+	// 	}
+	// }
 
 	const choicesList = rpsArr.map((choice, index) => {
 		return <button onClick={handlePlayerChoice} value={choice}>{choice}</button>

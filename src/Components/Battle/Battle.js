@@ -18,6 +18,12 @@ const Battle = (props) => {
 	//use props to access needed inputs
 	const runBattle = () => {
 		//wait for state to update, then run this function
+		let playerList = props.playerList;
+		for (let i = 0; i < playerList.length; i++) {
+			if (playerList[i] !== 'player') {
+				opponentChoice(playerList[i]);
+			}
+		}
 	}
 
 	const handlePlayerChoice = (e) => {

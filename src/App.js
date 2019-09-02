@@ -50,6 +50,7 @@ class App extends Component {
           opponents={this.state.opponents}
           currentOpponents={this.state.currentOpponents}
           handleCurrentOpponentChange={this.handleCurrentOpponentChange}
+          playerList={this.state.playerList}
           player={this.state.player}
         />}/>
 

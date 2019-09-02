@@ -72,6 +72,8 @@ class App extends Component {
     })
   }
 
+  handleOpponentChoice(opponentObj, opponentName)
+
 }
 
 export default App;

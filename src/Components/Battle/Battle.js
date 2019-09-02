@@ -34,14 +34,9 @@ const Battle = (props) => {
 		runBattle();
 	}
 
-	const opponentChoice = (opponentsObj) => {
-		console.log(opponentsObj);
-		// let updatedChoices = {}
-		// for (let opponent in opponentsObj) {
-		// 	let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
-		// 	opponentsObj[opponent].lastChoice = opponentChoice
-		// 	updatedChoices[opponent] = opponentsObj[opponent]
-		// }
+	const opponentChoice = (opponentName) => {
+		let opponentObj = props.opponents[opponentName]
+		let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
 		// props.handleCurrentOpponentChange(updatedChoices);
 	}
 

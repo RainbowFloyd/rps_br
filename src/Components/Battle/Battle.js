@@ -19,26 +19,30 @@ const Battle = (props) => {
 	const runBattle = () => {
 		//wait for state to update, then run this function
 		let playerList = props.playerList;
+		let minWait = 500;
+		let maxWait = 2500;
 		for (let i = 0; i < playerList.length; i++) {
+			let randomTime = Math.floor(Math.random() * maxWait) + minWait
 			if (playerList[i] !== 'player') {
-				opponentChoice(playerList[i]);
+				setTimeout(opponentChoice, randomTime, playerList[i]);
 			}
 		}
 	}
 
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
-		runBattle(playerChoice);
+		runBattle();
 	}
 
 	const opponentChoice = (opponentsObj) => {
-		let updatedChoices = {}
-		for (let opponent in opponentsObj) {
-			let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
-			opponentsObj[opponent].lastChoice = opponentChoice
-			updatedChoices[opponent] = opponentsObj[opponent]
-		}
-		props.handleCurrentOpponentChange(updatedChoices);
+		console.log(opponentsObj);
+		// let updatedChoices = {}
+		// for (let opponent in opponentsObj) {
+		// 	let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
+		// 	opponentsObj[opponent].lastChoice = opponentChoice
+		// 	updatedChoices[opponent] = opponentsObj[opponent]
+		// }
+		// props.handleCurrentOpponentChange(updatedChoices);
 	}
 
 	const determineWinner = (playerObj, opponentObj) => {

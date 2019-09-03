@@ -34,13 +34,25 @@ const Battle = (props) => {
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
 		choiceOrder.push(['player', playerChoice]);
-		console.log(choiceOrder.length)
+		if (checkIfAllChoose()) {
+			console.log(choiceOrder);
+		}
 	}
 
 	const opponentChoice = (opponentName) => {
 		let opponentObj = props.opponents[opponentName]
 		let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
 		choiceOrder.push([opponentName, opponentChoice]);
+		if (checkIfAllChoose()) {
+			console.log(choiceOrder);
+		}
+	}
+
+	const checkIfAllChoose = () => {
+		if (choiceOrder.length === props.playerList.length - 1) {
+			return true;
+		}
+		return false;
 	}
 
 	const determineWinner = (playerObj, opponentObj) => {

@@ -33,7 +33,7 @@ const Battle = (props) => {
 
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
-		choiceOrder.push(['player', playerChoice]);
+		choiceOrder.push('player');
 		if (checkIfAllChoose()) {
 			console.log(choiceOrder);
 		}
@@ -42,33 +42,24 @@ const Battle = (props) => {
 	const opponentChoice = (opponentName) => {
 		let opponentObj = props.opponents[opponentName]
 		let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
-		choiceOrder.push([opponentName, opponentChoice]);
+		choiceOrder.push(opponentName);
 		if (checkIfAllChoose()) {
 			console.log(choiceOrder);
 		}
 	}
 
 	const checkIfAllChoose = () => {
-		if (choiceOrder.length === props.playerList.length - 1) {
-			return true;
+		if (choiceOrder.length === props.playerList.length) {
+			console.log(choiceOrder)
+			determineWinners()
 		}
 		return false;
 	}
 
-	const determineWinner = (playerObj, opponentObj) => {
-		const playerChoice = playerObj.lastChoice;
-		const opponentChoice = opponentObj.lastChoice;
-		if (playerChoice === opponentChoice) {
-			console.log('Tie');
-			return 'tie';
-		} else if (rpsObj[playerChoice] === opponentChoice) {
-			console.log('You win!');
-			return 'win';
-		} else {
-			console.log(`You lose!`);
-			return 'lose';
-		}
-		return Error;
+	const determineWinners = () => {
+		//for each player choice
+		//find oppenent and determine who wins
+		//if player was an opponent, splice him out of the array
 	}
 
 	runBattle();

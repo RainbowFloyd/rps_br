@@ -9,6 +9,8 @@ const rpsObj = {
 
 const Battle = (props) => {
 
+	let choiceOrder = [];
+
 	//Make function that will set a Timer for all players to make a choice
 	//If no choice is made, make a random choice for them
 	//AI opponents will choose between 2-5 seconds
@@ -31,13 +33,14 @@ const Battle = (props) => {
 
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
-		runBattle();
+		choiceOrder.push(['player', playerChoice]);
+		console.log(choiceOrder.length)
 	}
 
 	const opponentChoice = (opponentName) => {
 		let opponentObj = props.opponents[opponentName]
 		let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
-		// props.handleCurrentOpponentChange(updatedChoices);
+		choiceOrder.push([opponentName, opponentChoice]);
 	}
 
 	const determineWinner = (playerObj, opponentObj) => {
@@ -55,6 +58,8 @@ const Battle = (props) => {
 		}
 		return Error;
 	}
+
+	runBattle();
 
 	// const runBattle = (playerChoice) => {
 	// 	props.player.lastChoice = playerChoice;

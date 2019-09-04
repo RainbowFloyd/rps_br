@@ -79,7 +79,9 @@ class App extends Component {
     for (let player in opponents) {
       opponents[player].lastChoice = opponentsChoice[player]
     }
-    console.log(opponents);
+    this.setState({
+      opponents: opponents
+    })
   }
 
 }

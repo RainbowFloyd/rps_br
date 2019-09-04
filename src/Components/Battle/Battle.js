@@ -10,6 +10,7 @@ const rpsObj = {
 const Battle = (props) => {
 
 	let choiceOrder = [];
+	let playersChoice = {};
 
 	//Make function that will set a Timer for all players to make a choice
 	//If no choice is made, make a random choice for them
@@ -34,23 +35,23 @@ const Battle = (props) => {
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
 		choiceOrder.push('player');
+		playersChoice['player'] = playerChoice;
 		if (checkIfAllChoose()) {
-			console.log(choiceOrder);
+
 		}
 	}
 
 	const opponentChoice = (opponentName) => {
-		let opponentObj = props.opponents[opponentName]
 		let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
 		choiceOrder.push(opponentName);
+		playersChoice[opponentName] = opponentChoice;
 		if (checkIfAllChoose()) {
-			console.log(choiceOrder);
+
 		}
 	}
 
 	const checkIfAllChoose = () => {
 		if (choiceOrder.length === props.playerList.length) {
-			console.log(choiceOrder)
 			determineWinners()
 		}
 		return false;
@@ -63,16 +64,6 @@ const Battle = (props) => {
 	}
 
 	runBattle();
-
-	// const runBattle = (playerChoice) => {
-	// 	props.player.lastChoice = playerChoice;
-	// 	opponentChoice(props.currentOpponents);
-	// 	for (let opponent in props.currentOpponents) {
-	// 		console.log(`${opponent} choose ${props.currentOpponents[opponent].lastChoice}`);
-	// 		console.log(`You choose ${props.player.lastChoice}`);
-	// 		determineWinner(props.player, props.currentOpponents[opponent]);
-	// 	}
-	// }
 
 	const choicesList = rpsArr.map((choice, index) => {
 		return <button onClick={handlePlayerChoice} value={choice}>{choice}</button>

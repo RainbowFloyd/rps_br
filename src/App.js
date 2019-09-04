@@ -24,6 +24,7 @@ class App extends Component {
     }
     this.handleOpponentChange = this.handleOpponentChange.bind(this);
     this.handleCurrentOpponentChange = this.handleCurrentOpponentChange.bind(this);
+    this.handleOpponentChoice = this.handleOpponentChoice.bind(this);
   }
 
   componentDidUpdate() {
@@ -49,6 +50,7 @@ class App extends Component {
         <Route path='/battle' render={()=><Battle 
           opponents={this.state.opponents}
           handleCurrentOpponentChange={this.handleCurrentOpponentChange}
+          handleOpponentChoice={this.handleOpponentChoice}
           playerList={this.state.playerList}
           player={this.state.player}
         />}/>
@@ -72,7 +74,13 @@ class App extends Component {
     })
   }
 
-  handleOpponentChoice(opponentObj, opponentName)
+  handleOpponentChoice(opponentsChoice) {
+    let opponents = this.state.opponents
+    for (let player in opponents) {
+      opponents[player].lastChoice = opponentsChoice[player]
+    }
+    console.log(opponents);
+  }
 
 }
 

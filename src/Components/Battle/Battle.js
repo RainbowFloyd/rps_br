@@ -52,7 +52,7 @@ const Battle = (props) => {
 
 	const checkIfAllChoose = () => {
 		if (choiceOrder.length === props.playerList.length) {
-			determineWinners()
+			props.handleOpponentChoice(playersChoice);
 		}
 		return false;
 	}

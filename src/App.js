@@ -54,6 +54,7 @@ class App extends Component {
           handlePlayerChoice={this.handlePlayerChoice}
           opponents={this.state.opponents}
           playerList={this.state.playerList}
+          playerPairs={this.state.playerPairs}
           player={this.state.player}
         />}/>
 

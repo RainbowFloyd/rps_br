@@ -35,7 +35,7 @@ const Battle = (props) => {
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
 		choiceOrder.push('player');
-		playersChoice['player'] = playerChoice;
+		props.handlePlayerChoice(playerChoice);
 		if (checkIfAllChoose()) {
 
 		}

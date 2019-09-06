@@ -25,6 +25,7 @@ class App extends Component {
     this.handleOpponentChange = this.handleOpponentChange.bind(this);
     this.handleCurrentOpponentChange = this.handleCurrentOpponentChange.bind(this);
     this.handleOpponentChoice = this.handleOpponentChoice.bind(this);
+    this.handlePlayerChoice = this.handlePlayerChoice.bind(this);
   }
 
   componentDidUpdate() {
@@ -48,9 +49,10 @@ class App extends Component {
         />}/>
 
         <Route path='/battle' render={()=><Battle 
-          opponents={this.state.opponents}
           handleCurrentOpponentChange={this.handleCurrentOpponentChange}
           handleOpponentChoice={this.handleOpponentChoice}
+          handlePlayerChoice={this.handlePlayerChoice}
+          opponents={this.state.opponents}
           playerList={this.state.playerList}
           player={this.state.player}
         />}/>
@@ -82,6 +84,14 @@ class App extends Component {
     this.setState({
       opponents: opponents
     })
+  }
+
+  handlePlayerChoice(choice) {
+    const player = this.state.player
+    player.lastChoice = choice;
+    this.setState({
+      player: player
+    })  
   }
 
 }

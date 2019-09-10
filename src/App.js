@@ -9,10 +9,8 @@ import Battle from './Components/Battle/Battle';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      opponents: {},
+  state = {
+    opponents: {},
       playerList: ['player'],
       playerPairs: [],
       player: {
@@ -21,18 +19,43 @@ class App extends Component {
         lastChoice: undefined,
         currentOpponents: {}
       }
-    }
-    this.handleOpponentChange = this.handleOpponentChange.bind(this);
-    this.handleCurrentOpponentChange = this.handleCurrentOpponentChange.bind(this);
-    this.handleOpponentChoice = this.handleOpponentChoice.bind(this);
-    this.handlePlayerChoice = this.handlePlayerChoice.bind(this);
   }
-
-  componentDidUpdate() {
+  componentDidUpdate = () => {
     console.log(`state updated!`)
     console.log(this.state)
   }
 
+  handleOpponentChange = (newOpponents, newOpponentsArr, newPlayerPairs) => {
+    this.setState({
+      opponents: newOpponents,
+      playerList: newOpponentsArr,
+      playerPairs: newPlayerPairs
+    });
+  }
+
+  handleCurrentOpponentChange = (newOpponents) => {
+    this.setState({
+      currentOpponents: newOpponents
+    })
+  }
+
+  handleOpponentChoice = (opponentsChoice) => {
+    let opponents = this.state.opponents
+    for (let player in opponents) {
+      opponents[player].lastChoice = opponentsChoice[player]
+    }
+    this.setState({
+      opponents: opponents
+    })
+  }
+
+  handlePlayerChoice = (choice) => {
+    const player = this.state.player
+    player.lastChoice = choice;
+    this.setState({
+      player: player
+    })  
+  }
 
   render() {
     return (
@@ -62,39 +85,6 @@ class App extends Component {
       </div>
     )
   }
-
-  handleOpponentChange(newOpponents, newOpponentsArr, newPlayerPairs) {
-    this.setState({
-      opponents: newOpponents,
-      playerList: newOpponentsArr,
-      playerPairs: newPlayerPairs
-    });
-  }
-
-  handleCurrentOpponentChange(newOpponents) {
-    this.setState({
-      currentOpponents: newOpponents
-    })
-  }
-
-  handleOpponentChoice(opponentsChoice) {
-    let opponents = this.state.opponents
-    for (let player in opponents) {
-      opponents[player].lastChoice = opponentsChoice[player]
-    }
-    this.setState({
-      opponents: opponents
-    })
-  }
-
-  handlePlayerChoice(choice) {
-    const player = this.state.player
-    player.lastChoice = choice;
-    this.setState({
-      player: player
-    })  
-  }
-
 }
 
 export default App;

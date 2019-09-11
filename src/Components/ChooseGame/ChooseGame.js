@@ -15,37 +15,35 @@ const ChooseGame = (props) => {
 		return cloneArr;
 	}
 
-	const pairNewOpponents = (playerList) => {
+	const pairNewPlayers = (playerList) => {
 		const playerPairs = [];
 		const shuffledPlayerList = shuffleArray(playerList);
 		for (let i = 0; i < shuffledPlayerList.length; i += 2) {
 			playerPairs.push([shuffledPlayerList[i], shuffledPlayerList[i + 1]]);
 		}
-		console.log(playerPairs);
 		return playerPairs;
 	}
 
-	const createOpponents = (numOfOpponents) => {
-		let newOpponents = {};
-		let newOpponentsArr = ['player'];
-		for (let i = 0; i < numOfOpponents; i++) {
-			let opponentName = `oppenent${i}`
-			newOpponentsArr.push(opponentName);
-			newOpponents[opponentName] = {
+	const createPlayers = (numOfPlayers) => {
+		let newPlayers = {};
+		let newPlayersArr = ['player'];
+		for (let i = 0; i < numOfPlayers; i++) {
+			let playerName = `oppenent${i}`
+			newPlayersArr.push(playerName);
+			newPlayers[playerName] = {
 				alive: true,
-				lastChoice: '',
-				currentOpponents: {}
+				lastChoice: ''
 			}
 		}
-		let playerPairs = pairNewOpponents(newOpponentsArr);
-		props.handleOpponentChange(newOpponents, newOpponentsArr, playerPairs);
+		let playerPairs = pairNewPlayers(newPlayersArr);
+		props.handlePlayersChange(newPlayers, newPlayersArr, playerPairs);
 	}
 
 	return(
 		<div>
 			<h1>Choose Game Mode</h1>
-			<button onClick={() => createOpponents(1)}><Link to='/battle'>1v1</Link></button>
-			<button onClick={() => createOpponents(5)}><Link to='/battle'>1v5</Link></button>
+			<button onClick={() => createPlayers(1)}><Link to='/battle'>1v1</Link></button>
+			<button onClick={() => createPlayers(5)}><Link to='/battle'>1v5</Link></button>
 		</div>
 	) 
 

@@ -37,7 +37,7 @@ const Battle = (props) => {
 		choiceOrder.push('player');
 		props.handlePlayerChoice(playerChoice);
 		if (checkIfAllChoose()) {
-
+			determineWinners();
 		}
 	}
 
@@ -46,21 +46,26 @@ const Battle = (props) => {
 		choiceOrder.push(opponentName);
 		playersChoice[opponentName] = opponentChoice;
 		if (checkIfAllChoose()) {
-
+			determineWinners();
 		}
 	}
 
 	const checkIfAllChoose = () => {
 		if (choiceOrder.length === props.playerList.length) {
 			props.handleOpponentChoice(playersChoice);
+			return true;
 		}
 		return false;
 	}
 
 	const determineWinners = () => {
-		//for each player choice
-		//find oppenent and determine who wins
-		//if player was an opponent, splice him out of the array
+		console.log('determineWinners');
+		props.playerPairs.forEach((pair) => {
+			let player1 = props.opponents[pair[0]];
+			let player2 = props.opponents[pair[1]];
+			console.log(player1);
+			console.log(player2);
+		});
 	}
 
 	runBattle();

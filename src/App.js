@@ -10,51 +10,32 @@ import Battle from './Components/Battle/Battle';
 class App extends Component {
 
   state = {
-    opponents: {},
-      playerList: ['player'],
-      playerPairs: [],
-      player: {
-        username: 'default',
-        alive: true,
-        lastChoice: undefined,
-        currentOpponents: {}
-      }
+    username: 'player',
+    players: {},
+    playerList: [],
+    playerPairs: []
   }
   componentDidUpdate = () => {
     console.log(`state updated!`)
     console.log(this.state)
   }
 
-  handleOpponentChange = (newOpponents, newOpponentsArr, newPlayerPairs) => {
+  handlePlayersChange = (newPlayers, newPlayersArr, newPlayerPairs) => {
     this.setState({
-      opponents: newOpponents,
-      playerList: newOpponentsArr,
+      players: newPlayers,
+      playerList: newPlayersArr,
       playerPairs: newPlayerPairs
     });
   }
 
-  handleCurrentOpponentChange = (newOpponents) => {
-    this.setState({
-      currentOpponents: newOpponents
-    })
-  }
-
-  handleOpponentChoice = (opponentsChoice) => {
-    let opponents = this.state.opponents
-    for (let player in opponents) {
-      opponents[player].lastChoice = opponentsChoice[player]
+  handlePlayerChoice = (playersChoice) => {
+    let players = this.state.players
+    for (let player in players) {
+      players[player].lastChoice = playersChoice[player]
     }
     this.setState({
-      opponents: opponents
+      players: players
     })
-  }
-
-  handlePlayerChoice = (choice) => {
-    const player = this.state.player
-    player.lastChoice = choice;
-    this.setState({
-      player: player
-    })  
   }
 
   render() {
@@ -65,20 +46,16 @@ class App extends Component {
         <Route exact path='/' component={MainMenu} />
 
         <Route path='/gamemode' render={()=><ChooseGame 
-          opponents={this.state.opponents}
+          players={this.state.players}
           playerList={this.state.playerList}
-          handleOpponentChange={this.handleOpponentChange}
-          handleCurrentOpponentChange={this.handleCurrentOpponentChange}
+          handlePlayersChange={this.handlePlayersChange}
         />}/>
 
         <Route path='/battle' render={()=><Battle 
-          handleCurrentOpponentChange={this.handleCurrentOpponentChange}
-          handleOpponentChoice={this.handleOpponentChoice}
-          handlePlayerChoice={this.handlePlayerChoice}
-          opponents={this.state.opponents}
+          handlePlayersChoice={this.handlePlayersChoice}
+          players={this.state.players}
           playerList={this.state.playerList}
           playerPairs={this.state.playerPairs}
-          player={this.state.player}
         />}/>
 
         <Route path='/options' component={Options} />

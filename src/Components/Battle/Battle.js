@@ -43,7 +43,8 @@ const Battle = (props) => {
 	}
 
 	const opponentChoice = (playerName) => {
-		let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
+		// let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
+		let opponentChoice = 'Rock'
 		choiceOrder.push(playerName);
 		playersChoice[playerName] = opponentChoice;
 		if (checkIfAllChoose()) {
@@ -81,7 +82,7 @@ const Battle = (props) => {
 			if (!playersCopy[player].isAlive) {
 				if (player === 'player') {
 					console.log('you lost');
-					return props.renderRedirect('/endgame');
+					return props.handleRedirect('redirectToEndgame', true);
 				}
 				delete playersCopy[player];
 			}

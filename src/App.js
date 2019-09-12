@@ -14,8 +14,7 @@ class App extends Component {
     username: 'player',
     players: {},
     playerList: [],
-    redirect: false,
-    redirectTo: ''
+    redirectToEndgame: false
   }
   componentDidUpdate = () => {
     console.log(`state updated!`)
@@ -39,21 +38,20 @@ class App extends Component {
     })
   }
 
-  renderRedirect = (target) => {
+  handleRedirect = (target, boolean) => {
     this.setState({
-      redirect: true,
-      redirectTo: target
+      [target]: boolean
     })
   }
 
 
   render() {
 
-    if (this.state.redirect) {
+    if (this.state.redirectToEndgame) {
       return (
         <div>
           <Route path='/endgame' component={Endgame} />
-          <Redirect to={this.state.redirectTo} />
+          <Redirect to='/endgame' />
         </div>
       )
     }
@@ -74,7 +72,7 @@ class App extends Component {
           handlePlayersChoice={this.handlePlayersChoice}
           players={this.state.players}
           playerList={this.state.playerList}
-          renderRedirect={this.renderRedirect}
+          handleRedirect={this.handleRedirect}
         />}/>
 
         <Route path='/options' component={Options} />

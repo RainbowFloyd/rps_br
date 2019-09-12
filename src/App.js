@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 import MainMenu from './Components/MainMenu/MainMenu';
 import ChooseGame from './Components/ChooseGame/ChooseGame';
@@ -13,7 +13,9 @@ class App extends Component {
   state = {
     username: 'player',
     players: {},
-    playerList: []
+    playerList: [],
+    redirect: false,
+    redirectTo: ''
   }
   componentDidUpdate = () => {
     console.log(`state updated!`)
@@ -37,7 +39,25 @@ class App extends Component {
     })
   }
 
+  renderRedirect = (target) => {
+    this.setState({
+      redirect: true,
+      redirectTo: target
+    })
+  }
+
+
   render() {
+
+    if (this.state.redirect) {
+      return (
+        <div>
+          <Route path='/endgame' component={Endgame} />
+          <Redirect to={this.state.redirectTo} />
+        </div>
+      )
+    }
+
     return (
       <div>
         <p>Welcome to Rock, Paper, Scissors Battle Royal!</p>
@@ -54,10 +74,10 @@ class App extends Component {
           handlePlayersChoice={this.handlePlayersChoice}
           players={this.state.players}
           playerList={this.state.playerList}
+          renderRedirect={this.renderRedirect}
         />}/>
 
         <Route path='/options' component={Options} />
-        <Route path='/endgame' component={Endgame} />
       </div>
     )
   }

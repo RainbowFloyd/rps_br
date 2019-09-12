@@ -38,7 +38,7 @@ const Battle = (props) => {
 		playersChoice['player'] = playerChoice;
 		//props.handlePlayerChoice(playerChoice);
 		if (checkIfAllChoose()) {
-			determineWinners();
+			return determineWinners();
 		}
 	}
 
@@ -47,7 +47,7 @@ const Battle = (props) => {
 		choiceOrder.push(playerName);
 		playersChoice[playerName] = opponentChoice;
 		if (checkIfAllChoose()) {
-			determineWinners();
+			return determineWinners();
 		}
 	}
 
@@ -72,18 +72,21 @@ const Battle = (props) => {
 				}
 			}
 		}
-		console.log('before ', players)
-		removeDefeatedPlayers(players);
+		return removeDefeatedPlayers(players);
 	}
 
 	const removeDefeatedPlayers = (players) => {
 		const playersCopy = JSON.parse(JSON.stringify(players));
 		for (let player in playersCopy) {
 			if (!playersCopy[player].isAlive) {
+				if (player === 'player') {
+					console.log('you lost');
+					return props.renderRedirect('/endgame');
+				}
 				delete playersCopy[player];
 			}
 		}
-		console.log('after ', playersCopy)
+		console.log(playersCopy);
 	}
 
 	runBattle();

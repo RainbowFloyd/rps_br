@@ -16,7 +16,6 @@ const ChooseGame = (props) => {
 	}
 
 	const pairNewPlayers = (playerList, playersObj) => {
-		const playerPairs = [];
 		const copy = playersObj
 		const shuffledPlayerList = shuffleArray(playerList);
 		for (let i = 0; i < shuffledPlayerList.length; i += 2) {

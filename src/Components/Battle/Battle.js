@@ -60,7 +60,7 @@ const Battle = (props) => {
 	}
 
 	const determineWinners = () => {
-		const players = props.players;
+		const players = JSON.parse(JSON.stringify(props.players));
 		for (let player in players) {
 			let playerObj = players[player];
 			let opponentObj = players[playerObj.currentOpponent]
@@ -72,13 +72,24 @@ const Battle = (props) => {
 				}
 			}
 		}
-		return players;
+		console.log('before ', players)
+		removeDefeatedPlayers(players);
+	}
+
+	const removeDefeatedPlayers = (players) => {
+		const playersCopy = JSON.parse(JSON.stringify(players));
+		for (let player in playersCopy) {
+			if (!playersCopy[player].isAlive) {
+				delete playersCopy[player];
+			}
+		}
+		console.log('after ', playersCopy)
 	}
 
 	runBattle();
 
 	const choicesList = rpsArr.map((choice, index) => {
-		return <button onClick={handlePlayerChoice} value={choice}>{choice}</button>
+		return <button key={index} onClick={handlePlayerChoice} value={choice}>{choice}</button>
 	});
 
 	return (

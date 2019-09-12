@@ -25,6 +25,8 @@ class App extends Component {
     this.setState({
       players: newPlayers,
       playerList: newPlayersArr
+    }, () => {
+      return;
     });
   }
 
@@ -70,6 +72,7 @@ class App extends Component {
 
         <Route path='/battle' render={()=><Battle 
           handlePlayersChoice={this.handlePlayersChoice}
+          handlePlayersChange={this.handlePlayersChange}
           players={this.state.players}
           playerList={this.state.playerList}
           handleRedirect={this.handleRedirect}

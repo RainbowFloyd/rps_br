@@ -60,14 +60,19 @@ const Battle = (props) => {
 	}
 
 	const determineWinners = () => {
-		console.log('determineWinners');
-		console.log(props.players);
-		props.playerPairs.forEach((pair) => {
-			let player1 = props.players[pair[0]];
-			let player2 = props.players[pair[1]];
-			console.log(player1);
-			console.log(player2);
-		});
+		const players = props.players;
+		for (let player in players) {
+			let playerObj = players[player];
+			let opponentObj = players[playerObj.currentOpponent]
+			if (playerObj.isAlive && opponentObj.isAlive) {
+				let playerChoice = playerObj.lastChoice;
+				let opponentChoice = opponentObj.lastChoice;
+				if (rpsObj[playerChoice] === opponentChoice) {
+					opponentObj.isAlive = false;
+				}
+			}
+		}
+		return players;
 	}
 
 	runBattle();

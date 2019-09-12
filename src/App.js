@@ -12,19 +12,17 @@ class App extends Component {
   state = {
     username: 'player',
     players: {},
-    playerList: [],
-    playerPairs: []
+    playerList: []
   }
   componentDidUpdate = () => {
     console.log(`state updated!`)
     console.log(this.state)
   }
 
-  handlePlayersChange = (newPlayers, newPlayersArr, newPlayerPairs) => {
+  handlePlayersChange = (newPlayers, newPlayersArr) => {
     this.setState({
       players: newPlayers,
-      playerList: newPlayersArr,
-      playerPairs: newPlayerPairs
+      playerList: newPlayersArr
     });
   }
 
@@ -55,7 +53,6 @@ class App extends Component {
           handlePlayersChoice={this.handlePlayersChoice}
           players={this.state.players}
           playerList={this.state.playerList}
-          playerPairs={this.state.playerPairs}
         />}/>
 
         <Route path='/options' component={Options} />

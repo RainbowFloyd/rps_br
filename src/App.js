@@ -6,6 +6,7 @@ import MainMenu from './Components/MainMenu/MainMenu';
 import ChooseGame from './Components/ChooseGame/ChooseGame';
 import Options from './Components/Options/Options';
 import Battle from './Components/Battle/Battle';
+import Endgame from './Components/Endgame/Endgame';
 
 class App extends Component {
 
@@ -56,6 +57,7 @@ class App extends Component {
         />}/>
 
         <Route path='/options' component={Options} />
+        <Route path='/endgame' component={Endgame} />
       </div>
     )
   }

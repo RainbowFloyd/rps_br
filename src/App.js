@@ -28,7 +28,7 @@ class App extends Component {
     });
   }
 
-  handlePlayerChoice = (playersChoice) => {
+  handlePlayersChoice = (playersChoice) => {
     let players = this.state.players
     for (let player in players) {
       players[player].lastChoice = playersChoice[player]

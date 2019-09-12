@@ -35,16 +35,17 @@ const Battle = (props) => {
 	const handlePlayerChoice = (e) => {
 		const playerChoice = e.target.value;
 		choiceOrder.push('player');
-		props.handlePlayerChoice(playerChoice);
+		playersChoice['player'] = playerChoice;
+		//props.handlePlayerChoice(playerChoice);
 		if (checkIfAllChoose()) {
 			determineWinners();
 		}
 	}
 
-	const opponentChoice = (opponentName) => {
+	const opponentChoice = (playerName) => {
 		let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
-		choiceOrder.push(opponentName);
-		playersChoice[opponentName] = opponentChoice;
+		choiceOrder.push(playerName);
+		playersChoice[playerName] = opponentChoice;
 		if (checkIfAllChoose()) {
 			determineWinners();
 		}
@@ -52,7 +53,7 @@ const Battle = (props) => {
 
 	const checkIfAllChoose = () => {
 		if (choiceOrder.length === props.playerList.length) {
-			props.handleOpponentChoice(playersChoice);
+			props.handlePlayersChoice(playersChoice);
 			return true;
 		}
 		return false;
@@ -60,9 +61,10 @@ const Battle = (props) => {
 
 	const determineWinners = () => {
 		console.log('determineWinners');
+		console.log(props.players);
 		props.playerPairs.forEach((pair) => {
-			let player1 = props.opponents[pair[0]];
-			let player2 = props.opponents[pair[1]];
+			let player1 = props.players[pair[0]];
+			let player2 = props.players[pair[1]];
 			console.log(player1);
 			console.log(player2);
 		});

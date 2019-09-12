@@ -28,13 +28,14 @@ const ChooseGame = (props) => {
 		let newPlayers = {};
 		let newPlayersArr = ['player'];
 		for (let i = 0; i < numOfPlayers; i++) {
-			let playerName = `oppenent${i}`
-			newPlayersArr.push(playerName);
+			newPlayersArr.push(`opponent${i}`);
+		}
+		newPlayersArr.forEach((playerName) => {
 			newPlayers[playerName] = {
 				alive: true,
 				lastChoice: ''
 			}
-		}
+		});
 		let playerPairs = pairNewPlayers(newPlayersArr);
 		props.handlePlayersChange(newPlayers, newPlayersArr, playerPairs);
 	}

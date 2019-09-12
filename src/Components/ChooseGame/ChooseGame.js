@@ -37,7 +37,7 @@ const ChooseGame = (props) => {
 		}
 		newPlayersArr.forEach((playerName) => {
 			newPlayers[playerName] = {
-				alive: true,
+				isAlive: true,
 				lastChoice: '',
 				currentOpponent: ''
 			}

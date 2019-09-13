@@ -25,8 +25,6 @@ class App extends Component {
     this.setState({
       players: newPlayers,
       playerList: newPlayersArr
-    }, () => {
-      return;
     });
   }
 
@@ -44,6 +42,29 @@ class App extends Component {
     this.setState({
       [target]: boolean
     })
+  }
+
+  shuffleArray = (arr) => {
+    let cloneArr = arr;
+    for (let i = 0; i < arr.length; i++) {
+      let j = Math.floor(Math.random() * (arr.length - 1));
+      let temp = cloneArr[i];
+      cloneArr[i] = cloneArr[j];
+      cloneArr[j] = temp;
+    }
+    return cloneArr;
+  }
+
+  pairPlayers = (playerList, playersObj) => {
+    const copy = playersObj;
+    const shuffledPlayerList = this.shuffleArray(playerList);
+    for (let i = 0; i < shuffledPlayerList.length; i += 2) {
+      let player1 = shuffledPlayerList[i];
+      let player2 = shuffledPlayerList[i + 1];
+      copy[player1].currentOpponent = player2;
+      copy[player2].currentOpponent = player1
+    }
+    return copy;
   }
 
 
@@ -68,11 +89,15 @@ class App extends Component {
           players={this.state.players}
           playerList={this.state.playerList}
           handlePlayersChange={this.handlePlayersChange}
+          shuffleArray={this.shuffleArray}
+          pairPlayers={this.pairPlayers}
         />}/>
 
         <Route path='/battle' render={()=><Battle 
           handlePlayersChoice={this.handlePlayersChoice}
           handlePlayersChange={this.handlePlayersChange}
+          pairPlayers={this.pairPlayers}
+          shuffleArray={this.shuffleArray}
           players={this.state.players}
           playerList={this.state.playerList}
           handleRedirect={this.handleRedirect}

@@ -4,29 +4,6 @@ import { Link } from 'react-router-dom'
 
 const ChooseGame = (props) => {
 
-	const shuffleArray = (arr) => {
-		let cloneArr = arr;
-		for (let i = 0; i < arr.length; i++) {
-			let j = Math.floor(Math.random() * (arr.length - 1));
-			let temp = cloneArr[i];
-			cloneArr[i] = cloneArr[j];
-			cloneArr[j] = temp;
-		}
-		return cloneArr;
-	}
-
-	const pairPlayers = (playerList, playersObj) => {
-		const copy = playersObj
-		const shuffledPlayerList = shuffleArray(playerList);
-		for (let i = 0; i < shuffledPlayerList.length; i += 2) {
-			let player1 = shuffledPlayerList[i];
-			let player2 = shuffledPlayerList[i + 1];
-			copy[player1].currentOpponent = player2;
-			copy[player2].currentOpponent = player1
-		}
-		return copy;
-	}
-
 	const createPlayers = (numOfPlayers) => {
 		let newPlayers = {};
 		let newPlayersArr = ['player'];
@@ -40,7 +17,7 @@ const ChooseGame = (props) => {
 				currentOpponent: ''
 			}
 		});
-		newPlayers = pairPlayers(newPlayersArr, newPlayers);
+		newPlayers = props.pairPlayers(newPlayersArr, newPlayers);
 		props.handlePlayersChange(newPlayers, newPlayersArr);
 	}
 
@@ -55,5 +32,3 @@ const ChooseGame = (props) => {
 }
 
 export default ChooseGame;
-export shuffleArray;
-export pairPlayers;

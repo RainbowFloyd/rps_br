@@ -15,7 +15,7 @@ const ChooseGame = (props) => {
 		return cloneArr;
 	}
 
-	const pairNewPlayers = (playerList, playersObj) => {
+	const pairPlayers = (playerList, playersObj) => {
 		const copy = playersObj
 		const shuffledPlayerList = shuffleArray(playerList);
 		for (let i = 0; i < shuffledPlayerList.length; i += 2) {
@@ -23,7 +23,6 @@ const ChooseGame = (props) => {
 			let player2 = shuffledPlayerList[i + 1];
 			copy[player1].currentOpponent = player2;
 			copy[player2].currentOpponent = player1
-			//playerPairs.push([player1, player2]);
 		}
 		return copy;
 	}
@@ -41,7 +40,7 @@ const ChooseGame = (props) => {
 				currentOpponent: ''
 			}
 		});
-		newPlayers = pairNewPlayers(newPlayersArr, newPlayers);
+		newPlayers = pairPlayers(newPlayersArr, newPlayers);
 		props.handlePlayersChange(newPlayers, newPlayersArr);
 	}
 
@@ -56,3 +55,5 @@ const ChooseGame = (props) => {
 }
 
 export default ChooseGame;
+export shuffleArray;
+export pairPlayers;

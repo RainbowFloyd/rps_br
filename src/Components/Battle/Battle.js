@@ -11,36 +11,37 @@ const Battle = (props) => {
 
 	let playersChoice = {};
 
-	const runBattle = () => {
-		let choices = opponentChoice(props.players, props.playerList);
-		let updated = determineWinners(choices);
-		let newInfoObj = removeDefeatedPlayers(updated);
-		if(props.playerList.length === 1) {
-			console.log('you win!')
-		} else {
-			let newPlayerPairs = props.pairPlayers(newInfoObj.playersList, newInfoObj.players);
-			props.handlePlayersChange(newPlayerPairs, newInfoObj.playerList);
-			console.log('make new choice!');
-		}
+	const runBattle = (playerChoice) => {
+		const playersCopy = {...props.players};
+		opponentChoice(playersCopy, props.playerList);
+		console.log('choices made')
+		console.log(playersCopy);
+		// let updated = determineWinners(choices);
+		// let newInfoObj = removeDefeatedPlayers(updated);
+		// if(props.playerList.length === 1) {
+		// 	console.log('you win!')
+		// } else {
+		// 	let newPlayerPairs = props.pairPlayers(newInfoObj.playersList, newInfoObj.players);
+		// 	props.handlePlayersChange(newPlayerPairs, newInfoObj.playerList);
+		// 	console.log('make new choice!');
+		// }
 	}
 
 	const opponentChoice = (playersObj, playerList) => {
-		const playersCopy = JSON.parse(JSON.stringify(playersObj));
 		for (let i = 0; i < playerList.length; i++) {
 			let playerName = playerList[i]
 			if (playerName !== 'player') {
 				const playerChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
-				playersCopy[playerName] = playerChoice;
+				playersObj[playerName].lastChoice = playerChoice; 
 			}
 		}
-		return playersCopy;
+		return playersObj;
 	}
 
 
 	const handlePlayerChoice = (e) => {
-			const playerChoice = e.target.value;
-			playersChoice['player'] = playerChoice;
-			runBattle();
+			//e.target.value is the players choice
+			runBattle(e.target.value);
 	}
 
 	const determineWinners = (playersObj) => {

@@ -14,9 +14,9 @@ const Battle = (props) => {
 	const runBattle = (playerChoice) => {
 		const playersCopy = {...props.players};
 		opponentChoice(playersCopy, props.playerList);
-		console.log('choices made')
+		determineWinners(playersCopy);
+		console.log('determineWinners');
 		console.log(playersCopy);
-		// let updated = determineWinners(choices);
 		// let newInfoObj = removeDefeatedPlayers(updated);
 		// if(props.playerList.length === 1) {
 		// 	console.log('you win!')
@@ -45,19 +45,20 @@ const Battle = (props) => {
 	}
 
 	const determineWinners = (playersObj) => {
-		const players = JSON.parse(JSON.stringify(playersObj));
-		for (let player in players) {
-			let playerObj = players[player];
-			let opponentObj = players[playerObj.currentOpponent]
+		for (let player in playersObj) {
+			let playerObj = playersObj[player];
+			let opponentObj = playersObj[playerObj.currentOpponent]
 			if (playerObj.isAlive && opponentObj.isAlive) {
 				let playerChoice = playerObj.lastChoice;
 				let opponentChoice = opponentObj.lastChoice;
 				if (rpsObj[playerChoice] === opponentChoice) {
 					opponentObj.isAlive = false;
+				} else if (rpsObj[opponentChoice] === playerChoice) {
+					playerObj.isAlive = false;
 				}
 			}
 		}
-		return players;
+		return playersObj;
 	}
 
 	const removeDefeatedPlayers = (players) => {

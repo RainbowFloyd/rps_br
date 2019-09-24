@@ -9,59 +9,42 @@ const rpsObj = {
 
 const Battle = (props) => {
 
-	let choiceOrder = [];
 	let playersChoice = {};
 
-	//Make function that will set a Timer for all players to make a choice
-	//If no choice is made, make a random choice for them
-	//AI opponents will choose between 2-5 seconds
-	//when each choice is made, add playerName and choice to an object and wait for other inputs
-	//use async & await with promises
-
-	//use props to access needed inputs
 	const runBattle = () => {
-		//wait for state to update, then run this function
-		let playerList = props.playerList;
-		let minWait = 500;
-		let maxWait = 2500;
+		let choices = opponentChoice(props.players, props.playerList);
+		let updated = determineWinners(choices);
+		let newInfoObj = removeDefeatedPlayers(updated);
+		if(props.playerList.length === 1) {
+			console.log('you win!')
+		} else {
+			let newPlayerPairs = props.pairPlayers(newInfoObj.playersList, newInfoObj.players);
+			props.handlePlayersChange(newPlayerPairs, newInfoObj.playerList);
+			console.log('make new choice!');
+		}
+	}
+
+	const opponentChoice = (playersObj, playerList) => {
+		const playersCopy = JSON.parse(JSON.stringify(playersObj));
 		for (let i = 0; i < playerList.length; i++) {
-			let randomTime = Math.floor(Math.random() * maxWait) + minWait
-			if (playerList[i] !== 'player') {
-				setTimeout(opponentChoice, randomTime, playerList[i]);
+			let playerName = playerList[i]
+			if (playerName !== 'player') {
+				const playerChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
+				playersCopy[playerName] = playerChoice;
 			}
 		}
+		return playersCopy;
 	}
+
 
 	const handlePlayerChoice = (e) => {
-		const playerChoice = e.target.value;
-		choiceOrder.push('player');
-		playersChoice['player'] = playerChoice;
-		//props.handlePlayerChoice(playerChoice);
-		if (checkIfAllChoose()) {
-			return determineWinners();
-		}
+			const playerChoice = e.target.value;
+			playersChoice['player'] = playerChoice;
+			runBattle();
 	}
 
-	const opponentChoice = (playerName) => {
-		// let opponentChoice = rpsArr[Math.floor(Math.random() * rpsArr.length)];
-		let opponentChoice = 'Rock'
-		choiceOrder.push(playerName);
-		playersChoice[playerName] = opponentChoice;
-		if (checkIfAllChoose()) {
-			return determineWinners();
-		}
-	}
-
-	const checkIfAllChoose = () => {
-		if (choiceOrder.length === props.playerList.length) {
-			props.handlePlayersChoice(playersChoice);
-			return true;
-		}
-		return false;
-	}
-
-	const determineWinners = () => {
-		const players = JSON.parse(JSON.stringify(props.players));
+	const determineWinners = (playersObj) => {
+		const players = JSON.parse(JSON.stringify(playersObj));
 		for (let player in players) {
 			let playerObj = players[player];
 			let opponentObj = players[playerObj.currentOpponent]
@@ -73,11 +56,13 @@ const Battle = (props) => {
 				}
 			}
 		}
-		return removeDefeatedPlayers(players);
+		return players;
 	}
 
 	const removeDefeatedPlayers = (players) => {
 		const playersCopy = JSON.parse(JSON.stringify(players));
+		const newAlivePlayers = [];
+		console.log(playersCopy);
 		for (let player in playersCopy) {
 			if (!playersCopy[player].isAlive) {
 				if (player === 'player') {
@@ -85,12 +70,15 @@ const Battle = (props) => {
 					return props.handleRedirect('redirectToEndgame', true);
 				}
 				delete playersCopy[player];
+			} else {
+				newAlivePlayers.push(player);
 			}
 		}
-		console.log(playersCopy);
+		return {
+			players: playersCopy,
+			playersList: newAlivePlayers
+		}
 	}
-
-	runBattle();
 
 	const choicesList = rpsArr.map((choice, index) => {
 		return <button key={index} onClick={handlePlayerChoice} value={choice}>{choice}</button>

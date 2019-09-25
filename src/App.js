@@ -61,8 +61,12 @@ class App extends Component {
     for (let i = 0; i < shuffledPlayerList.length; i += 2) {
       let player1 = shuffledPlayerList[i];
       let player2 = shuffledPlayerList[i + 1];
-      copy[player1].currentOpponent = player2;
-      copy[player2].currentOpponent = player1
+      if (player2 === undefined) {
+        copy[player1].currentOpponent = 'No Opponent'
+      } else {
+        copy[player1].currentOpponent = player2;
+        copy[player2].currentOpponent = player1;
+      }
     }
     return copy;
   }

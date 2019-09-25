@@ -17,7 +17,7 @@ const ChooseGame = (props) => {
 				currentOpponent: ''
 			}
 		});
-		newPlayers = props.pairPlayers(newPlayersArr, newPlayers);
+		props.pairPlayers(newPlayersArr, newPlayers);
 		props.handlePlayersChange(newPlayers, newPlayersArr);
 	}
 

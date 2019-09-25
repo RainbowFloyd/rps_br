@@ -13,11 +13,10 @@ const Battle = (props) => {
 
 	const runBattle = (playerChoice) => {
 		const playersCopy = {...props.players};
+		playersCopy['player'].lastChoice = playerChoice;
 		opponentChoice(playersCopy, props.playerList);
 		determineWinners(playersCopy);
-		console.log('determineWinners');
-		console.log(playersCopy);
-		// let newInfoObj = removeDefeatedPlayers(updated);
+		removeDefeatedPlayers(playersCopy);
 		// if(props.playerList.length === 1) {
 		// 	console.log('you win!')
 		// } else {
@@ -61,25 +60,22 @@ const Battle = (props) => {
 		return playersObj;
 	}
 
-	const removeDefeatedPlayers = (players) => {
-		const playersCopy = JSON.parse(JSON.stringify(players));
+	const removeDefeatedPlayers = (playersObj) => {
+		console.log({...playersObj});
 		const newAlivePlayers = [];
-		console.log(playersCopy);
-		for (let player in playersCopy) {
-			if (!playersCopy[player].isAlive) {
+		for (let player in playersObj) {
+			if (!playersObj[player].isAlive) {
 				if (player === 'player') {
 					console.log('you lost');
 					return props.handleRedirect('redirectToEndgame', true);
 				}
-				delete playersCopy[player];
+				delete playersObj[player];
 			} else {
 				newAlivePlayers.push(player);
 			}
 		}
-		return {
-			players: playersCopy,
-			playersList: newAlivePlayers
-		}
+		console.log(playersObj);
+		return newAlivePlayers;
 	}
 
 	const choicesList = rpsArr.map((choice, index) => {

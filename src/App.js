@@ -56,13 +56,13 @@ class App extends Component {
   }
 
   pairPlayers = (playerList, playersObj) => {
-    const copy = playersObj;
+    const copy = {...playersObj};
     const shuffledPlayerList = this.shuffleArray(playerList);
     for (let i = 0; i < shuffledPlayerList.length; i += 2) {
       let player1 = shuffledPlayerList[i];
       let player2 = shuffledPlayerList[i + 1];
       if (player2 === undefined) {
-        copy[player1].currentOpponent = 'No Opponent'
+        copy[player1].currentOpponent = 'noOpponent'
       } else {
         copy[player1].currentOpponent = player2;
         copy[player2].currentOpponent = player1;

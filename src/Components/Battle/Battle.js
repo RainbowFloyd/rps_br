@@ -4,26 +4,25 @@ const rpsArr = ['Rock', 'Paper', 'Scissors'];
 const rpsObj = {
 	Rock: 'Scissors',
 	Paper: 'Rock',
-	Scissors: 'Paper'
+	Scissors: 'Paper',
+	noOpponent: true
 }
 
 const Battle = (props) => {
-
-	let playersChoice = {};
 
 	const runBattle = (playerChoice) => {
 		const playersCopy = {...props.players};
 		playersCopy['player'].lastChoice = playerChoice;
 		opponentChoice(playersCopy, props.playerList);
 		determineWinners(playersCopy);
-		removeDefeatedPlayers(playersCopy);
-		// if(props.playerList.length === 1) {
-		// 	console.log('you win!')
-		// } else {
-		// 	let newPlayerPairs = props.pairPlayers(newInfoObj.playersList, newInfoObj.players);
-		// 	props.handlePlayersChange(newPlayerPairs, newInfoObj.playerList);
-		// 	console.log('make new choice!');
-		// }
+		let newAlivePlayers = removeDefeatedPlayers(playersCopy);
+		if (props.playerList.length === 1) {
+			console.log('you win!')
+		} else if (playersCopy['player'].isAlive) {
+			let newPlayerPairs = props.pairPlayers(newAlivePlayers, playersCopy);
+			props.handlePlayersChange(newPlayerPairs, playersCopy);
+			console.log('make new choice!');
+		}
 	}
 
 	const opponentChoice = (playersObj, playerList) => {
@@ -45,15 +44,17 @@ const Battle = (props) => {
 
 	const determineWinners = (playersObj) => {
 		for (let player in playersObj) {
-			let playerObj = playersObj[player];
-			let opponentObj = playersObj[playerObj.currentOpponent]
-			if (playerObj.isAlive && opponentObj.isAlive) {
-				let playerChoice = playerObj.lastChoice;
-				let opponentChoice = opponentObj.lastChoice;
-				if (rpsObj[playerChoice] === opponentChoice) {
-					opponentObj.isAlive = false;
-				} else if (rpsObj[opponentChoice] === playerChoice) {
-					playerObj.isAlive = false;
+			if (playersObj[player].currentOpponent !== 'noOpponent') {
+				let playerObj = playersObj[player];
+				let opponentObj = playersObj[playerObj.currentOpponent]
+				if (playerObj.isAlive && opponentObj.isAlive) {
+					let playerChoice = playerObj.lastChoice;
+					let opponentChoice = opponentObj.lastChoice;
+					if (rpsObj[playerChoice] === opponentChoice) {
+						opponentObj.isAlive = false;
+					} else if (rpsObj[opponentChoice] === playerChoice) {
+						playerObj.isAlive = false;
+					}
 				}
 			}
 		}
@@ -61,20 +62,19 @@ const Battle = (props) => {
 	}
 
 	const removeDefeatedPlayers = (playersObj) => {
-		console.log({...playersObj});
 		const newAlivePlayers = [];
 		for (let player in playersObj) {
 			if (!playersObj[player].isAlive) {
 				if (player === 'player') {
 					console.log('you lost');
-					return props.handleRedirect('redirectToEndgame', true);
+					props.handleRedirect('redirectToEndgame', true);
+					return;
 				}
 				delete playersObj[player];
 			} else {
 				newAlivePlayers.push(player);
 			}
 		}
-		console.log(playersObj);
 		return newAlivePlayers;
 	}
 
